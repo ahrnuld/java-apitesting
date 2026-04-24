@@ -4,46 +4,35 @@ import nl.inholland.javaapitesting.exceptions.InhollandValidationException;
 import nl.inholland.javaapitesting.models.Car;
 import nl.inholland.javaapitesting.models.DTO.CarDTO;
 import nl.inholland.javaapitesting.services.CarService;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.config.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("cars")
 public class CarController {
 
-    @Autowired
     private CarService carService;
-
-    ModelMapper modelMapper;
-
-    public CarController() {
-        modelMapper = new ModelMapper();
-        modelMapper.getConfiguration().setFieldMatchingEnabled(true).setFieldAccessLevel(Configuration.AccessLevel.PRIVATE);
-    }
 
     @GetMapping
     public List<CarDTO> getAll() {
 
         List<Car> cars = carService.getAll();
 
-        // As an example, this code that was the first result from googling doesn't pass the test
+        List<CarDTO> dtos = cars.stream().map(car -> new CarDTO(
+                car.getId(),
+                car.getBrand(),
+                car.getLicensePlate(),
+                car.getWeight(),
+                car.getOwner().getId(),
+                car.getOwner().getFirstName(),
+                car.getOwner().getLastName()))
+                .collect(Collectors.toList());
 
-        // List<CarDTO> carDTOS = new ArrayList<>();
-        // modelMapper.map(cars,carDTOS);
-
-        // This code passes the test
-
-        List<CarDTO> dtos = Arrays.asList(modelMapper.map(cars, CarDTO[].class));
-
-      //  List<CarDTO> dtos = cars.stream().map(car -> modelMapper.map(car, CarDTO.class)).collect(Collectors.toList());
-
-        //return result
         return dtos;
     }
 

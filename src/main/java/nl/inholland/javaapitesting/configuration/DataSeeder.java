@@ -23,10 +23,10 @@ public class DataSeeder implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) {
 
-        Person person1 = new Person(1, "Luc", "Besson", new ArrayList<>());
+        Person person1 = new Person(0, "Luc", "Besson", new ArrayList<>());
         personService.add(person1);
 
-        Car car1 = new Car(1, "Mercedes", 2000, "A class", person1);
+        Car car1 = new Car(0, "Mercedes", 2000, "A class", person1);
         carService.add(car1);
     }
 }
