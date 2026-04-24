@@ -1,22 +1,11 @@
 package nl.inholland.javaapitesting.models.DTO;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class CarDTO {
-
-    private long id;
-    private String brand;
-    private String licensePlate;
-    private int weight;
-
-    // The variables below will be automapped :)
-    private long ownerId;
-    private String ownerFirstName;
-    private String ownerLastName;
-
-}
+public record CarDTO(
+        long id,
+        String brand,
+        String licensePlate,
+        int weight,
+        long ownerId,
+        String ownerFirstName,
+        String ownerLastName
+) {}
