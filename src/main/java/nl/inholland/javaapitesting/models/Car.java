@@ -28,11 +28,4 @@ public class Car {
 
     @ManyToOne
     private Person owner;
-
-    public void setWeight(int weight) {
-        if (weight < 0) {
-            throw new IllegalArgumentException("Weight cannot be less than zero");
-        }
-        this.weight = weight;
-    }
 }
