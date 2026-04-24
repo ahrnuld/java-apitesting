@@ -16,7 +16,12 @@ import java.util.stream.Collectors;
 @RequestMapping("cars")
 public class CarController {
 
-    private CarService carService;
+    private final CarService carService;
+
+    public CarController(CarService carService) {
+        this.carService = carService;
+    }
+
 
     @GetMapping
     public List<CarDTO> getAll() {
